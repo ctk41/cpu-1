@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Checkout...."
+
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/develop']],
+                    extensions: [],
+                    userRemoteConfigs: [[
+                        credentialsId: '',
+                        url: "https://github.com/ctk41/cpu-1.git"
+                    ]]
+                ])
+            }
+        }
+
+        stage('ESLint') {
+            steps {
+                sh '''#!/bin/bash
+                  
+                '''
+            }
+        }
+    }
+    post {
+        always {
+            echo "Git Clone"
+        }
+        failure {
+            echo "Debug envs"
+        }
+    }
+}
